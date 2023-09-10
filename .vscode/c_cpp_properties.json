@@ -1,0 +1,36 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [
+                "${workspaceFolder}/**"
+            ],
+            "defines": [],
+            "compilerPath": "/usr/bin/clang",
+            "cStandard": "c17",
+            "cppStandard": "c++14",
+            "intelliSenseMode": "linux-clang-x64"
+        },
+        {
+            "name": "arduino-stm32",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "/home/vs30/.arduino15/packages/STMicroelectronics/**",
+                "/home/vs30/Arduino/libraries/**"
+            ],
+            "defines": [],
+            "compilerPath": "/usr/bin/clang",
+            "cStandard": "c17",
+            "cppStandard": "c++14",
+            "intelliSenseMode": "linux-clang-x64",
+            "browse": {
+                "path": [
+                    "${workspaceFolder}/**",
+                    "/home/vs30/.arduino15/packages/STMicroelectronics/**",
+                    "/home/vs30/Arduino/libraries/**"    
+                ]
+            }
+        }
+    ],
+    "version": 4
+}
