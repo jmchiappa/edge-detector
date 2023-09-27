@@ -34,20 +34,23 @@ class Edge {
 
 		uint8_t rising(T variable) {
 			uint8_t  ret = (variable != edge::STATE::FALSE && this->previous == edge::STATE::FALSE);
-			this->init(variable);
+			if(ret != 0)
+				this->init(variable);
 			return ret;
 		}
 
 		uint8_t falling(T variable) {
 			uint8_t  ret = (variable == edge::STATE::FALSE && this->previous != edge::STATE::FALSE);
-			this->init(variable);
+			if(ret != 0)
+				this->init(variable);
 			return ret;
 		}
 
 		uint8_t changing(T variable){
 			uint8_t  ret = (variable == edge::STATE::FALSE && this->previous != edge::STATE::FALSE) || \
 										 (variable != edge::STATE::FALSE && this->previous == edge::STATE::FALSE);
-			this->init(variable);
+			if(ret != 0)
+				this->init(variable);
 			return ret;
 		}
 
