@@ -18,10 +18,11 @@ namespace edge::STATE {
 	uint8_t FALSE = 0;
 	uint8_t TRUE = !FALSE;
 }
-
 template <class T>
 class Edge {
-		T previous;
+		T previous0to1;
+		T previous1to0;
+		T previousChange;
   public:
     Edge ()
     {
@@ -33,31 +34,38 @@ class Edge {
     }
 
 		uint8_t rising(T variable) {
-			uint8_t  ret = (variable != edge::STATE::FALSE && this->previous == edge::STATE::FALSE);
-			if(ret != 0)
-				this->init(variable);
+			uint8_t  ret = (variable != edge::STATE::FALSE && this->previous0to1 == edge::STATE::FALSE);
+			this->previous0to1 = variable;
+
+			if(ret != edge::STATE::FALSE )
+				this->previous1to0 = edge::STATE::FALSE;
+			
 			return ret;
 		}
 
 		uint8_t falling(T variable) {
-			uint8_t  ret = (variable == edge::STATE::FALSE && this->previous != edge::STATE::FALSE);
-			if(ret != 0)
-				this->init(variable);
+			uint8_t  ret = (variable == edge::STATE::FALSE && this->previous1to0 != edge::STATE::FALSE);
+			this->previous1to0 = variable;
+			if(ret == edge::STATE::FALSE )
+				this->previous0to1 = !edge::STATE::FALSE;
 			return ret;
 		}
 
 		uint8_t changing(T variable){
-			uint8_t  ret = (variable == edge::STATE::FALSE && this->previous != edge::STATE::FALSE) || \
-										 (variable != edge::STATE::FALSE && this->previous == edge::STATE::FALSE);
+			uint8_t  ret = (variable != this->previousChange);
 			if(ret != 0)
-				this->init(variable);
+				this->previousChange = variable;
 			return ret;
 		}
 
 		void init(T variable) {
-			this->previous = variable;
+			this->previous0to1 = variable;
+			this->previous1to0 = variable;
+			this->previousChange = variable;
 		}
 };
+
+
 
 #endif /* __cplusplus */
 
