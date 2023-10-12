@@ -15,8 +15,8 @@
 #ifdef __cplusplus
 
 namespace edge::STATE {
-	uint8_t FALSE = 0;
-	uint8_t TRUE = !FALSE;
+	uint8_t FALSY = 0;
+	uint8_t TRUELY = !FALSY;
 }
 template <class T>
 class Edge {
@@ -34,20 +34,20 @@ class Edge {
     }
 
 		uint8_t rising(T variable) {
-			uint8_t  ret = (variable != edge::STATE::FALSE && this->previous0to1 == edge::STATE::FALSE);
+			uint8_t  ret = (variable != edge::STATE::FALSY && this->previous0to1 == edge::STATE::FALSY);
 			this->previous0to1 = variable;
 
-			if(ret != edge::STATE::FALSE )
-				this->previous1to0 = edge::STATE::FALSE;
+			if(ret != edge::STATE::FALSY )
+				this->previous1to0 = edge::STATE::FALSY;
 			
 			return ret;
 		}
 
 		uint8_t falling(T variable) {
-			uint8_t  ret = (variable == edge::STATE::FALSE && this->previous1to0 != edge::STATE::FALSE);
+			uint8_t  ret = (variable == edge::STATE::FALSY && this->previous1to0 != edge::STATE::FALSY);
 			this->previous1to0 = variable;
-			if(ret == edge::STATE::FALSE )
-				this->previous0to1 = !edge::STATE::FALSE;
+			if(ret == edge::STATE::FALSY )
+				this->previous0to1 = !edge::STATE::FALSY;
 			return ret;
 		}
 
